@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: service-turbine
+  profiles:
+      active: dev
+  cloud:
+    config:
+      failFast: true
+      discovery:
+        enabled: true
+        serviceId: service-config
+
+# change those config in prod ?
+eureka:
+  instance:
+    #lease-expiration-duration-in-seconds: 30
+    #lease-renewal-interval-in-seconds: 10
+
+turbine:
+  appConfig: service-zuul, service-customer, service-product, service-supplier
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+  
+---
+spring:
+  profiles: dev
+server:
+  port: 9006
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+---
+spring:
+  profiles: docker
+
+server:
+  port: ${SERVICE_PORT:9006}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
