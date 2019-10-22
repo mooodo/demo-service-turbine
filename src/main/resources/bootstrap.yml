@@ -18,10 +18,11 @@ eureka:
     #lease-renewal-interval-in-seconds: 10
 
 turbine:
-  appConfig: service-zuul, service-product
+  appConfig: service-product, service-zuul
   aggregator:
     clusterConfig: default
   clusterNameExpression: new String("default")
+  #instanceUrlSuffix: /hystrix.stream
   
 ---
 spring:
