@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+    app: demo-service-turbine
+  name: demo-service-turbine
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-service-turbine
+  template:
+    metadata:
+      name: demo-service-turbine
+      labels:
+        app: demo-service-turbine
+    spec:
+      containers:
+      - name: demo-service-turbine
+        image: 192.168.0.209:5000/demo-service-turbine
+        imagePullPolicy: Always
+        env:
+          - name: GIT_URL
+            value: "http://192.168.0.209:31000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: demo-service-turbine
+  name: demo-service-turbine
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 9006 
+    targetPort: 9006
+    nodePort: 31006
+  selector:
+    app: demo-service-turbine
