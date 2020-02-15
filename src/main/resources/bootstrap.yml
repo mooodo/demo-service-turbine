@@ -5,24 +5,17 @@ spring:
       active: dev
   cloud:
     config:
-      uri: ${GIT_URL:http://localhost:9000/}
+      # uri: ${GIT_URL:http://localhost:9000/}
       failFast: false
-      # discovery:
-      #   enabled: true
-      #   serviceId: service-config
-
-# change those config in prod ?
-eureka:
-  instance:
-    #lease-expiration-duration-in-seconds: 30
-    #lease-renewal-interval-in-seconds: 10
+      discovery:
+        enabled: true
+        serviceId: service-config
 
 turbine:
-  appConfig: service-product, service-zuul
+  appConfig: service-product, service-zuul, service-order
   aggregator:
     clusterConfig: default
   clusterNameExpression: new String("default")
-  #instanceUrlSuffix: /hystrix.stream
   
 ---
 spring:

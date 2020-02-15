@@ -18,11 +18,11 @@ spec:
     spec:
       containers:
       - name: demo-service-turbine
-        image: 192.168.0.209:5000/demo-service-turbine
+        image: 172.31.87.111:5000/demo-service-turbine
         imagePullPolicy: Always
-        env:
-          - name: GIT_URL
-            value: "http://192.168.0.209:31000"
+        #env:
+        #  - name: GIT_URL
+        #    value: "http://192.168.0.209:31000"
 ---
 kind: Service
 apiVersion: v1
